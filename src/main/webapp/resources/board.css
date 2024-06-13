@@ -1,0 +1,62 @@
+.container {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.board-header {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.board-content {
+	border: 1px solid #ddd;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+
+.board-content h3 {
+	margin: 0 0 10px 0;
+}
+
+.board-content p {
+	margin: 10px 0;
+}
+
+.board-content .label {
+	font-weight: bold;
+}
+
+.board-content .info {
+	display: inline-block; 
+	width: calc(100% - 40px);
+	padding: 5px 10px; 
+	border: 1px solid #ccc; 
+	border-radius: 4px;
+}
+
+.center {
+	text-align: right; 
+	margin-top: 20px;
+}
+
+.btn-group {
+	display: inline-block;
+}
+
+.btn {
+	background-color: #333;
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+	border-radius: 5px;
+	margin-left: 10px; 
+}
+
+.btn:first-child {
+	margin-left: 0;
+}
+
+.btn:hover {
+	background-color: #555;
+}

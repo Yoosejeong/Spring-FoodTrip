@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.tukorea.foodtrip.mapper.userMapper">
+
+
+
+	<insert id="insert">
+		insert into user_free (userId, passwd, email, phone,
+		nickname) values
+		(#{userId}, #{passwd}, #{email}, #{phone},
+		#{nickname})
+	</insert>
+
+	<select id="selectByid" resultType="UserVO">
+		select * from user_free where
+		userId = #{userId}
+	</select>
+
+	<select id="Login" parameterType="UserVO" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM user_free
+		WHERE userId = #{userId}
+		AND passwd = #{passwd}
+	</select>
+
+
+	<select id="selectAll"
+		resultType="org.tukorea.foodtrip.domain.UserVO">
+     <![CDATA[
+ 		select * from user_free
+      ]]>
+	</select>
+
+	<update id="update">
+		update user_free set userId =#{userId}, passwd =#{passwd},
+		email =#{email},
+		phone =#{phone}, nickname =#{nickname}
+		where userId =
+		#{userId}
+	</update>
+
+	<delete id="delete">
+		delete from user_free where userId = #{userId}
+	</delete>
+
+	<delete id="deleteUserBoards" parameterType="java.lang.String">
+		DELETE FROM board_free WHERE userId = #{userId}
+	</delete>
+	
+	 <select id="checkUserIdExists" resultType="int" parameterType="string">
+        SELECT COUNT(*) FROM user_free WHERE userId = #{userId}
+    </select>
+    
+    <select id="checkNicknameExists" resultType="int" parameterType="string">
+        SELECT COUNT(*) FROM user_free WHERE nickname = #{nickname}
+    </select>
+	
+</mapper>  

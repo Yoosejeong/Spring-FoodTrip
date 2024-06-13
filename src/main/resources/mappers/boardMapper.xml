@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.tukorea.foodtrip.mapper.boardMapper">
+
+	<insert id="insert">
+		insert into board_free (boardId, title, content, userId,
+		category, rating) values
+		(#{boardId}, #{title},
+		#{content}, #{userId},
+		#{category},#{rating})
+	</insert>
+
+	<select id="selectByid"
+		resultType="org.tukorea.foodtrip.domain.BoardVO">
+		SELECT
+		b.boardId, b.title, b.content, b.userId, u.nickname
+		AS nickname, b.category,
+		b.createdAt, b.updatedAt, b.rating, b.views
+		FROM
+		board_free b
+		JOIN
+		user_free u ON b.userId = u.userId
+		WHERE
+		b.boardId = #{boardId}
+	</select>
+
+
+
+
+	<select id="selectAll"
+		resultType="org.tukorea.foodtrip.domain.BoardVO">
+		SELECT
+		b.boardId,
+		b.title,
+		b.content,
+		b.userId,
+		u.nickname,
+		b.createdAt,
+		b.updatedAt,
+		b.category,
+		b.rating,
+		b.views
+		FROM
+		board_free b
+		JOIN
+		user_free u ON b.userId = u.userId
+	</select>
+
+
+
+	<update id="update">
+		update board_free set boardId =#{boardId}, title
+		=#{title}, content =#{content},
+		category =#{category}, rating
+		=#{rating}, updatedAt = CURRENT_TIMESTAMP
+		where boardId = #{boardId}
+	</update>
+
+	<!-- update -->
+	<update id="viewUpdate">
+		UPDATE board_free SET views = views+1 WHERE boardId =
+		#{boardId}
+	</update>
+
+
+	<delete id="delete">
+		delete from board where boardId = #{boardId}
+	</delete>
+
+	<select id="selectPopularBoards"
+		resultType="org.tukorea.foodtrip.domain.BoardVO">
+		SELECT
+		b.boardId, b.title, b.content, b.userId, u.nickname AS nickname, b.category,
+		b.createdAt, b.updatedAt, b.views, b.rating
+		FROM
+		board_free b
+		JOIN
+		user_free u ON b.userId = u.userId
+		ORDER BY
+		b.views DESC
+		LIMIT 4
+	</select>
+	
+	<select id="selectRecentBoards" resultType="BoardVO">
+    SELECT * FROM board_free ORDER BY updatedAt DESC LIMIT 4
+</select>
+
+ <select id="getBoardByCategory" resultType="BoardVO">
+    SELECT
+    b.boardId,
+    b.title,
+    b.content,
+    b.userId,
+    u.nickname,
+    b.createdAt,
+    b.updatedAt,
+    b.category,
+    b.rating,
+    b.views
+    FROM
+    board_free b
+    JOIN
+    user_free u ON b.userId = u.userId 
+    WHERE category = #{category}
+</select>
+</mapper>
